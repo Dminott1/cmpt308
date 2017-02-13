@@ -146,12 +146,12 @@ from Orders;
 -- 1) Get the cities of agents booking an order for a customer whose cid is 'c006'.	
 select city 
 from Agents 
-where aid 
-	in(select aid  from Orders
-       where cid = 'c006');
+where aid in
+	(select aid  from Orders
+         where cid = 'c006');
        
--- 2) Get the distinct ids of products ordered through any agent who takes at least	one.	
--- order from a	customer in	Kyoto, sorted by pid from highest to lowest.
+-- 2) Get the distinct ids of products ordered through any agent who takes at least one.	
+-- order from a	customer in Kyoto, sorted by pid from highest to lowest.
 select distinct pid 
 from Orders 
 where aid in 
@@ -160,21 +160,21 @@ where aid in
      	(select cid from Customers
 			where city = 'Kyoto'));
  
--- 3) Get the ids and names	of customers who did not place an order	through	agent a01.	
+-- 3) Get the ids and names of customers who did not place an order through agent a01.	
 select cid, name from customers
 where cid not in 
 (select cid from orders 
 	where aid = 'a01');
 
 
--- 4) Get the ids of customers who ordered both product	p01	and	p07.	
+-- 4) Get the ids of customers who ordered both product	p01 and	p07.	
 select distinct cid, name from customers
 where cid in
 (select cid from orders 
  where pid = 'p01' and pid = 'p07');
  
 -- 5) Get the ids of products not ordered by any customers who placed any order	through	
--- agent a08 in	pid	order from highest to lowest.	
+-- agent a08 in	pid order from highest to lowest.	
 select distinct pid
 from Orders
 where cid not in 
